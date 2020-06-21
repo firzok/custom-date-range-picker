@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
 import { generateStyles } from "./utils";
-import { addDays, format, addYears, setYear, setMonth, min, max, setDay } from "date-fns";
+import { addDays, format, addYears, isSameMonth, setMonth, min, max, setDay } from "date-fns";
 
 export function DateRangeButton(props) {
   const [range, setRange] = useState(1);
@@ -13,6 +13,7 @@ export function DateRangeButton(props) {
     setRange(props.range);
   }, [props.range]);
   let dateRange = props.dateRange[0];
+  let lastPossibleSelection = isSameMonth(dateRange.endDate, new Date());
 
   let styles = generateStyles([coreStyles, props.classNames]);
 
@@ -24,7 +25,6 @@ export function DateRangeButton(props) {
   }
 
   const changeShownDate = (focusedDate, value, type, mode = "set") => {
-    debugger;
     const { minDate, maxDate, onDateChange } = props;
     const modeMapper = {
       dayOffset: date => addDays(date, value),
@@ -65,8 +65,12 @@ export function DateRangeButton(props) {
           onClick={() => {
             changeShownDate(dateRange, +range, "end", "dayOffset");
           }}
+          disabled={lastPossibleSelection}
         >
-          <FontAwesomeIcon icon={faAngleRight} />
+          <FontAwesomeIcon
+            icon={faAngleRight}
+            style={{ color: lastPossibleSelection ? "grey" : "black" }}
+          />
         </button>
       </span>
     </div>
