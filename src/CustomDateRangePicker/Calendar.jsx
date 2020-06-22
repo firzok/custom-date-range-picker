@@ -191,20 +191,22 @@ class Calendar extends PureComponent {
     return (
       <div onMouseUp={e => e.stopPropagation()} className={styles.monthAndYearWrapper}>
         {showMonthArrow ? (
-          <span style={{ display: "flex" }}>
-            <button
-              type="button"
-              className={classnames(styles.nextPrevButton, styles.prevButton)}
-              onClick={() => changeShownDate(-1, "yearOffset")}
-            >
-              <FontAwesomeIcon icon={faAngleDoubleLeft} />
-            </button>
+          <span className={"calendarLeftArrow"}>
             <button
               type="button"
               className={classnames(styles.nextPrevButton, styles.prevButton)}
               onClick={() => changeShownDate(-1, "monthOffset")}
+              style={{ marginLeft: "1.3rem" }}
             >
               <FontAwesomeIcon icon={faAngleLeft} />
+            </button>
+            <button
+              type="button"
+              className={classnames(styles.nextPrevButton, styles.prevButton)}
+              onClick={() => changeShownDate(-1, "yearOffset")}
+              style={{ marginLeft: "0" }}
+            >
+              <FontAwesomeIcon icon={faAngleDoubleLeft} />
             </button>
           </span>
         ) : null}
@@ -212,30 +214,36 @@ class Calendar extends PureComponent {
         {new Array(this.props.months).fill(null).map((_, i) => {
           const monthStep = addMonths(this.state.focusedDate, i);
 
-          return <h2 key={i}>{format(monthStep, "MMMM yyyy", this.props.dateOptions)}</h2>;
+          return (
+            <h2 key={i} style={{ alignSelf: "center" }}>
+              {format(monthStep, "MMMM yyyy", this.props.dateOptions)}
+            </h2>
+          );
         })}
 
         {showMonthArrow ? (
-          <span style={{ display: "flex" }}>
+          <span className={"calendarRightArrow"}>
             <button
               type="button"
               className={classnames(styles.nextPrevButton)}
-              onClick={() => changeShownDate(+1, "monthOffset")}
+              onClick={() => changeShownDate(+1, "yearOffset")}
               disabled={todaySelected}
+              style={{ marginRight: "0" }}
             >
               <FontAwesomeIcon
-                icon={faAngleRight}
+                icon={faAngleDoubleRight}
                 style={{ color: todaySelected ? "grey" : "black" }}
               />
             </button>
             <button
               type="button"
               className={classnames(styles.nextPrevButton)}
-              onClick={() => changeShownDate(+1, "yearOffset")}
+              onClick={() => changeShownDate(+1, "monthOffset")}
               disabled={todaySelected}
+              style={{ marginRight: "1.3rem" }}
             >
               <FontAwesomeIcon
-                icon={faAngleDoubleRight}
+                icon={faAngleRight}
                 style={{ color: todaySelected ? "grey" : "black" }}
               />
             </button>
@@ -516,7 +524,7 @@ Calendar.defaultProps = {
   focusedRange: [0, 0],
   dateDisplayFormat: "MMM d, yyyy",
   monthDisplayFormat: "MMM yyyy",
-  weekdayDisplayFormat: "E",
+  weekdayDisplayFormat: "EEEEEE",
   dayDisplayFormat: "d",
   showDateDisplay: true,
   showPreview: true,

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styles from "./styles";
 import { defaultInputRanges, defaultStaticRanges } from "./defaultRanges";
 import { rangeShape } from "./DayCell";
-import InputRangeField from "./InputRangeField";
 import cx from "classnames";
 
 class DefinedRange extends Component {
@@ -98,10 +97,10 @@ class DefinedRange extends Component {
                 onClick={() =>
                   this.handleRangeChange(staticRange.range(this.props), staticRange.label)
                 }
-                onFocus={() => onPreviewChange && onPreviewChange(staticRange.range(this.props))}
-                onMouseOver={() =>
-                  onPreviewChange && onPreviewChange(staticRange.range(this.props))
-                }
+                // onFocus={() => onPreviewChange && onPreviewChange(staticRange.range(this.props))}
+                // onMouseOver={() =>
+                //   onPreviewChange && onPreviewChange(staticRange.range(this.props))
+                // }
                 onMouseLeave={() => {
                   onPreviewChange && onPreviewChange();
                 }}

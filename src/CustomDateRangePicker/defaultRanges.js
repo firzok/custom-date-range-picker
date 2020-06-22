@@ -9,7 +9,8 @@ import {
   startOfYear,
   endOfYear,
   startOfDecade,
-  endOfDecade
+  endOfDecade,
+  addYears
 } from "date-fns";
 
 const defineds = {
@@ -29,10 +30,10 @@ const defineds = {
   endOfLast30Days: endOfDay(addDays(new Date(), -1)),
 
   startOfYear: startOfYear(new Date()),
-  endOfYear: endOfYear(new Date()),
+  endOfYear: endOfDay(new Date()),
 
-  startOfLifetime: startOfDecade(new Date(1920, 1, 1, 0, 0, 0)),
-  endOfLifetime: endOfDecade(new Date())
+  startOfLifetime: startOfDay(addYears(new Date(), -100)),
+  endOfLifetime: endOfDay(new Date())
 };
 
 const staticRangeHandler = {

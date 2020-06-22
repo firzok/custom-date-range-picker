@@ -1,3 +1,7 @@
+body {
+  font-family: "Roboto";
+}
+
 .activeDay {
   background: currentColor;
   position: absolute;
@@ -8,13 +12,13 @@
 }
 
 .rdrEndEdge {
-  border-top-right-radius: 0.042em;
-  border-bottom-right-radius: 0.3em;
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
   right: 2px;
 }
 .rdrStartEdge {
-  border-top-left-radius: 0.3em;
-  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
   left: 2px;
 }
 rdrCalendarWrapper {
@@ -277,7 +281,6 @@ rdrCalendarWrapper {
 .rdrMonthAndYearWrapper {
   align-items: center;
   height: 60px;
-  padding-top: 10px;
 }
 
 .rdrMonthAndYearPickers {
@@ -408,7 +411,7 @@ rdrCalendarWrapper {
   font-weight: 500;
 }
 
-.rdrDayToday .rdrDayNumber span:after {
+/* .rdrDayToday .rdrDayNumber span:after {
   content: "";
   position: absolute;
   bottom: 4px;
@@ -418,7 +421,7 @@ rdrCalendarWrapper {
   height: 2px;
   border-radius: 2px;
   background: #f39c15;
-}
+} */
 
 .rdrDayToday:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span:after,
 .rdrDayToday:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span:after,
@@ -593,7 +596,7 @@ rdrCalendarWrapper {
 .rdrStaticRangeLabel {
   display: block;
   outline: 0;
-  line-height: 18px;
+  line-height: 13px;
   padding: 15px 20px;
   text-align: left;
   border-right: thin;
@@ -643,7 +646,7 @@ rdrCalendarWrapper {
 }
 
 .rdrDayPassive .rdrDayNumber span {
-  color: #d5dce0;
+  color: transparent !important;
 }
 
 .rdrDayPassive .rdrInRange,
@@ -657,7 +660,7 @@ rdrCalendarWrapper {
 }
 
 .rdrDayDisabled {
-  background-color: rgb(248, 248, 248);
+  background-color: transparent;
 }
 
 .rdrDayDisabled .rdrDayNumber span {
@@ -680,4 +683,16 @@ rdrCalendarWrapper {
   font-weight: 600;
   color: #849095;
   padding: 0.833em;
+}
+
+.calendarLeftArrow {
+  display: flex;
+  margin-left: 0;
+  margin-right: -12rem;
+}
+
+.calendarRightArrow {
+  display: flex;
+  margin-right: 0;
+  margin-left: -12rem;
 }

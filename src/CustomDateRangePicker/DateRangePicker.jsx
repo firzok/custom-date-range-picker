@@ -5,15 +5,40 @@ import { findNextRangeIndex, generateStyles } from "./utils";
 import coreStyles from "./styles";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import { addYears } from "date-fns";
 
 export class DateRangePicker extends Component {
   constructor(props) {
     super(props);
+
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+
     this.state = {
       focusedRange: [findNextRangeIndex(props.ranges), 0],
       isOpen: true
     };
     this.styles = generateStyles([coreStyles, props.classNames]);
+  }
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
+  /**
+   * Set the wrapper ref
+   */
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.props.confirmSelection();
+    }
   }
 
   render() {
@@ -21,7 +46,10 @@ export class DateRangePicker extends Component {
     let styles = generateStyles([coreStyles, this.props.classNames]);
 
     return (
-      <div className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}>
+      <div
+        ref={this.setWrapperRef}
+        className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}
+      >
         <span style={{ borderRight: "thin solid #B6BBCD" }}>
           <DateRange
             onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
@@ -30,7 +58,7 @@ export class DateRangePicker extends Component {
             ref={t => (this.dateRange = t)}
             className={undefined}
           />
-          <span style={{ display: "flex" }}>
+          {/* <span style={{ display: "flex" }}>
             <button
               type="button"
               className={classnames(styles.nextPrevButton)}
@@ -56,7 +84,7 @@ export class DateRangePicker extends Component {
             >
               Apply
             </button>
-          </span>
+          </span> */}
         </span>
 
         <DefinedRange
@@ -82,6 +110,7 @@ DateRangePicker.defaultProps = {
   },
   direction: "horizontal",
   maxDate: new Date(),
+  minDate: addYears(new Date(), -100),
   rangeColors: ["#F39C15"]
 };
 
