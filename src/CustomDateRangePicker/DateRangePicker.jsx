@@ -48,7 +48,7 @@ export class DateRangePicker extends Component {
     return (
       <div
         ref={this.setWrapperRef}
-        className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}
+        className={classnames(this.styles.dateRangePickerWrapper, this.props.className, "shadow")}
       >
         <span style={{ borderRight: "thin solid #B6BBCD" }}>
           <DateRange

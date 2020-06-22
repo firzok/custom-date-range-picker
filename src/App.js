@@ -29,7 +29,6 @@ function App(props) {
   return isOpen ? (
     <div>
       <DateRangePicker
-        className="custom"
         onChange={item => selectDateRange([item.selection])}
         showSelectionPreview={true}
         moveRangeOnFirstSelection={false}

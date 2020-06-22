@@ -696,3 +696,8 @@ rdrCalendarWrapper {
   margin-right: 0;
   margin-left: -12rem;
 }
+
+.shadow {
+  box-shadow: 0 0 20px 2px #ccc;
+  border-radius: 5px;
+}

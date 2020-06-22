@@ -4,7 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
 import { generateStyles } from "./utils";
-import { addDays, format, addYears, isSameMonth, setMonth, min, max, setDay } from "date-fns";
+import {
+  addDays,
+  format,
+  addYears,
+  isSameMonth,
+  setMonth,
+  min,
+  max,
+  setDay,
+  isSameDay
+} from "date-fns";
 
 export function DateRangeButton(props) {
   const [range, setRange] = useState(1);
@@ -13,7 +23,9 @@ export function DateRangeButton(props) {
     setRange(props.range);
   }, [props.range]);
   let dateRange = props.dateRange[0];
-  let lastPossibleSelection = isSameMonth(dateRange.endDate, new Date());
+  let lastPossibleSelection = isSameDay(dateRange.endDate, new Date());
+
+  let today = new Date();
 
   let styles = generateStyles([coreStyles, props.classNames]);
 
@@ -39,13 +51,20 @@ export function DateRangeButton(props) {
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", width: "100%", cursor: "pointer" }}>
+    <div style={{ display: "flex", alignItems: "center", width: "fit-content", cursor: "pointer" }}>
       <span style={{ display: "flex", alignItems: "center" }} onClick={props.onClick}>
         <FontAwesomeIcon icon={faCalendarAlt} style={{ color: "grey", margin: "0 1rem 0 1rem" }} />
 
         <h4>
-          {formatDate(dateRange.startDate, props.dateDisplayFormat)} {"- "}
-          {formatDate(dateRange.endDate, props.dateDisplayFormat)}
+          {isSameDay(today, dateRange.startDate)
+            ? "Today"
+            : formatDate(dateRange.startDate, props.dateDisplayFormat)}
+          {isSameDay(today, dateRange.startDate) ? ", " : " - "}
+          {isSameDay(today, dateRange.endDate)
+            ? isSameDay(today, dateRange.startDate)
+              ? formatDate(dateRange.startDate, props.dateDisplayFormat)
+              : "Today"
+            : formatDate(dateRange.endDate, props.dateDisplayFormat)}{" "}
         </h4>
       </span>
 
