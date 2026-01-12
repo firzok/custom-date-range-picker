@@ -14,7 +14,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-list": "^0.8.15",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "shallow-equal": "^1.2.1",
     "typeface-roboto": "0.0.75"
   },
